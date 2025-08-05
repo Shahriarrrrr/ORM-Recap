@@ -132,11 +132,26 @@ Answer:  Reverse Relation
 """
 
 
-def run():
-    # resturant = Resturant.objects.first()
-    # print(resturant.ratings.all()) #set a related name of ratings | or without related names, rating_set
-    # pprint(connection.queries)
-    resturant = Resturant.objects.first()
-    print(resturant.sales.first().income)
+# def run():
+#     # resturant = Resturant.objects.first()
+#     # print(resturant.ratings.all()) #set a related name of ratings | or without related names, rating_set
+#     # pprint(connection.queries)
+#     resturant = Resturant.objects.first()
+#     print(resturant.sales.first().income)
     
 
+
+"""
+Get or Create METHOD
+"""
+
+
+def run():
+    user = User.objects.first()
+    resturant = Resturant.objects.first()
+    rating,created =  Rating.objects.get_or_create(
+            resturant = resturant,
+            user = user,
+            rating = 2,)
+
+    pprint(f'Rating: {rating}',  )
