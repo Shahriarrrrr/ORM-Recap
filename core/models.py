@@ -39,4 +39,4 @@ class Rating(models.Model):
 class Sale(models.Model):
     resturant = models.ForeignKey(Resturant, on_delete=models.SET_NULL, null=True)
     income = models.DecimalField(max_digits=8, decimal_places=2)
-    datetime = models.DateTimeField()
+    datetime = models.DateTimeField() 
