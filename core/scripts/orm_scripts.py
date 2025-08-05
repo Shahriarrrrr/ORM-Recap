@@ -1,7 +1,8 @@
-from core.models import Resturant, Rating
+from core.models import Resturant, Rating, Sale
 from django.utils import timezone
 from django.db import connection
 from django.contrib.auth.models import User
+from pprint import pprint
 
 #SEEDING DATA
 # def run():
@@ -34,6 +35,28 @@ from django.contrib.auth.models import User
 #     print(connection.queries)
 
 
+# def run():
+#     Sale.objects.create(
+#         resturant =  Resturant.objects.first(),
+#         income = 12.33,
+#         datetime = timezone.now()
+#     )
+#     Sale.objects.create(
+#         resturant =  Resturant.objects.first(),
+#         income = 92.33,
+#         datetime = timezone.now()
+
+#     )
+#     Sale.objects.create(
+#         resturant =  Resturant.objects.first(),
+#         income = 27.33,
+#         datetime = timezone.now()
+
+#     )
+
+
+
+
 """
 count, last, 
 
@@ -58,10 +81,62 @@ count, last,
 
 
 """
+filter,exclude Lookup:  __gte ,__lte, 
+"""
+
+# def run():
+#     # print(Rating.objects.filter(rating = 3)) #rating is a field must be exactly same name as field (Fieldname = value)
+#     # print(Rating.objects.filter(rating__gte = 3)) #lookup WHERE
+#     # print(Rating.objects.filter(rating__lte = 5)) #lookup WHERE
+#     print(Rating.objects.exclude(rating__lte = 5)) #lookup WHERE NOT
+#     # print(Rating.objects.filter(rating = 5))
+#     # print(Rating.objects.filter(rating = 7))
+#     print(connection.queries)
+
+"""
+Updating Records
 
 """
 
-def run():
-    print(Rating.objects.all())
 
+# def run():
+#     resturant  =   Resturant.objects.first()
+#     print(resturant.name)
+#     resturant.name = "Olee"
+#     resturant.save()
+#     print(resturant.name)
+#     pprint(connection.queries)
+
+
+"""SQL TOPIC: JOIN
+Querying related records
+"""
+
+# def run():
+#     rating  = Rating.objects.first()
+#     print(rating.rating)
+#     print(rating.resturant)
+#     print(rating.resturant.name)
+#     print(rating.resturant.latitude)
+#     pprint(connection.queries)
+
+
+"""
+Reverse Relation: 
+Context: 
+        Suppose in the Resturant there is no rating field but Rating model has
+        resturant field foreign key. So how can i get the rating by using Resturant
+        model which doesn't have any rating field???
+
+Answer:  Reverse Relation
+"""
+
+
+def run():
+    # resturant = Resturant.objects.first()
+    # print(resturant.ratings.all()) #set a related name of ratings | or without related names, rating_set
+    # pprint(connection.queries)
+    resturant = Resturant.objects.first()
+    print(resturant.sales.first().income)
+    
 
