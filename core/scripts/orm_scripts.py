@@ -154,4 +154,4 @@ def run():
             user = user,
             rating = 2,)
 
-    pprint(f'Rating: {rating}',  )
+    pprint(f'Rating: {rating} Created : {created}' )
