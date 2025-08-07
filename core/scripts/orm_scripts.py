@@ -146,12 +146,28 @@ Get or Create METHOD
 """
 
 
+# def run():
+#     user = User.objects.first()
+#     resturant = Resturant.objects.first()
+#     rating,created =  Rating.objects.get_or_create(
+#             resturant = resturant,
+#             user = user,
+#             rating = 2,)
+
+#     pprint(f'Rating: {rating} Created : {created}' )
+
+"""
+Using Django validators, Automatically doesn't WORK but if you call
+full_clean() then it throws an exception 
+"""
+
 def run():
     user = User.objects.first()
     resturant = Resturant.objects.first()
-    rating,created =  Rating.objects.get_or_create(
-            resturant = resturant,
-            user = user,
-            rating = 2,)
-
-    pprint(f'Rating: {rating} Created : {created}' )
+    rating = Rating(
+        user = user,
+        resturant = resturant,
+        rating = 9
+    )
+    rating.full_clean()
+    rating.save()
