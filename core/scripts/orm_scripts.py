@@ -161,13 +161,56 @@ Using Django validators, Automatically doesn't WORK but if you call
 full_clean() then it throws an exception 
 """
 
-def run():
-    user = User.objects.first()
-    resturant = Resturant.objects.first()
-    rating = Rating(
-        user = user,
-        resturant = resturant,
-        rating = 9
+# def run():
+#     user = User.objects.first()
+#     resturant = Resturant.objects.first()
+#     rating = Rating(
+#         user = user,
+#         resturant = resturant,
+#         rating = 9
+#     )
+#     rating.full_clean()
+#     rating.save()
+
+
+"""
+Update: Specifying which exact field to update beforehand
+
+"""
+
+
+# def run(): 
+#     resturant = Resturant.objects.first()
+#     print(resturant.name)
+#     resturant.name = 'New Resturant name'
+#     resturant.save(
+#         update_fields=['name'] #using this only updates this field other things untouched
+#     )
+#     pprint(connection.queries)
+
+
+"""
+Updating a queryset of records with
+queryset update() method
+
+"""
+
+# def run(): 
+#     resturant = Resturant.objects.all()
+#     resturant.update(
+#         date_opened = timezone.now()
+#     )
+#     print(connection.queries)
+
+"""
+Filtering queryset with a startswith lookup
+django
+
+"""
+
+def run(): 
+    resturant = Resturant.objects.all()
+    resturant.update(
+        date_opened = timezone.now()
     )
-    rating.full_clean()
-    rating.save()
+    print(connection.queries)
