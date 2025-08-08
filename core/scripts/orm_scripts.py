@@ -210,6 +210,7 @@ django
 
 def run(): 
     resturant = Resturant.objects.all()
+    rating = Rating.objects.first()
     resturant.update(
         date_opened = timezone.now()
     )
