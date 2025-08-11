@@ -204,14 +204,26 @@ queryset update() method
 
 """
 Filtering queryset with a startswith lookup
-django
+django and updating multiple arguments
+
+"""
+
+# def run(): 
+#     resturant = Resturant.objects.filter(name__startswith= 'P')
+#     print(resturant.update(
+#         date_opened = timezone.now() - timezone.timedelta(days=365), 
+#         website = "https://test.me"
+#     ))
+#     print(connection.queries)
+
+
+"""
+Delete
 
 """
 
 def run(): 
-    resturant = Resturant.objects.all()
-    rating = Rating.objects.first()
-    resturant.update(
-        date_opened = timezone.now()
-    )
+    resturant = Resturant.objects.first()
+    print(resturant.pk)
+    print(resturant.ratings.all())
     print(connection.queries)
