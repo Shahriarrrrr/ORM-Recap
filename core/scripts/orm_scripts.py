@@ -235,6 +235,72 @@ Delete  ALL
 
 """
 
-def run(): 
-    Resturant.objects.all().delete()
-    print(connection.queries)
+# def run(): 
+#     Resturant.objects.all().delete()
+#     print(connection.queries)
+
+
+
+"""
+Initial Count
+
+"""
+
+
+# def run():
+#     print(Resturant.objects.count())
+#     print(Rating.objects.count())
+#     print(Sale.objects.count())
+
+
+
+"""
+Filtering RECORDS Single
+
+"""
+
+# def run():
+#     #filter down only to chinese resturants
+#     chinese_resturants =  Resturant.objects.filter(resturant_type = Resturant.TypeChoices.CHINESE)
+#     #print(chinese_resturants)
+
+#     #Filter by name
+#     #print(Resturant.objects.filter(name = 'Pizzeria 1'))
+
+
+#     """
+#     get() method can only work if there is a single row
+#     and returns model instance , multiples will not work
+#     """
+
+#     #print(Resturant.objects.get(name = 'Pizzeria 1')) #This will work
+#     #print(Resturant.objects.get(resturant_type = Resturant.TypeChoices.ITALIAN)) #This will not work because there is > 5 italian
+
+#     italian = Resturant.objects.filter(resturant_type = Resturant.TypeChoices.ITALIAN)
+#     #print(italian)
+#     print(italian.exists()) #Returns Boolean
+#     #pprint(connection.queries)
+
+
+"""
+Filter Multiple AND conditions
+
+"""    
+
+
+def run():
+    pass
+
+
+
+
+
+
+
+
+
+
+
+
+
+
