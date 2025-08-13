@@ -285,11 +285,24 @@ Filtering RECORDS Single
 """
 Filter Multiple AND conditions
 
+startswith, __in
+
 """    
 
 
 def run():
-    pass
+    chinese = Resturant.TypeChoices.CHINESE
+    mexican = Resturant.TypeChoices.MEXICAN
+    indian = Resturant.TypeChoices.INDIAN
+
+    check_types = [chinese, mexican, indian]
+    
+    #resturants =  Resturant.objects.filter(resturant_type = chinese , name__startswith = 'C')
+    #resturants =  Resturant.objects.filter(resturant_type__in = check_types)
+    #resturants =  Resturant.objects.filter(resturant_type__exclude = chinese)
+
+    print(resturants)
+    pprint(connection.queries)
 
 
 
