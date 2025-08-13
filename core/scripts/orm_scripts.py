@@ -222,8 +222,19 @@ Delete
 
 """
 
+# def run(): 
+#     resturant = Resturant.objects.first()
+#     print(resturant.pk)
+#     print(resturant.ratings.all())
+#     resturant.delete()
+#     print(connection.queries)
+
+
+"""
+Delete  ALL
+
+"""
+
 def run(): 
-    resturant = Resturant.objects.first()
-    print(resturant.pk)
-    print(resturant.ratings.all())
+    Resturant.objects.all().delete()
     print(connection.queries)
