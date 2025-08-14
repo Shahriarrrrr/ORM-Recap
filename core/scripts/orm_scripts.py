@@ -285,27 +285,50 @@ Filtering RECORDS Single
 """
 Filter Multiple AND conditions
 
-startswith, __in
+startswith, __in, exclude()
 
 """    
 
 
-def run():
-    chinese = Resturant.TypeChoices.CHINESE
-    mexican = Resturant.TypeChoices.MEXICAN
-    indian = Resturant.TypeChoices.INDIAN
+# def run():
+#     chinese = Resturant.TypeChoices.CHINESE
+#     mexican = Resturant.TypeChoices.MEXICAN
+#     indian = Resturant.TypeChoices.INDIAN
 
-    check_types = [chinese, mexican, indian]
+#     check_types = [chinese, mexican, indian]
     
-    #resturants =  Resturant.objects.filter(resturant_type = chinese , name__startswith = 'C')
-    #resturants =  Resturant.objects.filter(resturant_type__in = check_types)
-    #resturants =  Resturant.objects.filter(resturant_type__exclude = chinese)
+#     #resturants =  Resturant.objects.filter(resturant_type = chinese , name__startswith = 'C')
+#     #resturants =  Resturant.objects.filter(resturant_type__in = check_types)
+#     #resturants =  Resturant.objects.exclude(resturant_type = chinese)
+#     resturants =  Resturant.objects.exclude(resturant_type__in = [chinese, indian])
+#     print(resturants)
+#     pprint(connection.queries)
 
-    print(resturants)
-    pprint(connection.queries)
+
+"""
+Suppose we want the resturants which name starts with a,b,c,d
+lt, gt
+"""
+
+# def run():
+#     #resturants = Resturant.objects.filter(name__lt = 'E') #Suppose we want the resturants which name starts with a,b,c,d
+#     #resturants = Resturant.objects.filter(longitude__gt = 0) #Suppose we want the resturants which name starts with a,b,c,d
+#     sales =  Sale.objects.filter(income__gt = 90)
+#     print(sales)
+#     #print(resturants)
+#     pprint(connection.queries)
 
 
 
+"""
+range lookups can be alsp used on datetime
+
+"""
+
+# def run():
+#     sales = Sale.objects.filter(income__range = (50, 60))
+#     print([sale.income for sale in sales])
+#     pprint(connection.queries)
 
 
 
