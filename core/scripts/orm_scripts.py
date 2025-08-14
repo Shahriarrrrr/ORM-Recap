@@ -334,7 +334,63 @@ range lookups can be alsp used on datetime
 
 
 
+"""
+ORDER BY
 
+order_by(), order_by().reverse
+"""
+from django.db.models.functions import Lower
+
+# def run():
+#     #resturants = Resturant.objects.order_by('name') #Ascending name alphabetical
+#     #resturants = Resturant.objects.order_by('-name') #Reverse order can be used with number, datetimefield etc
+#     #resturants = Resturant.objects.order_by('name').reverse()
+#     """
+#     Suppose there is a lower case name then it wont take account of that . How to tackel this?
+#     """
+#     #resturants = Resturant.objects.order_by(Lower('name')) #To avoid cases
+#     #print(resturants)
+
+#     """
+#     Order by date opened
+#     """
+#     #resturants = Resturant.objects.order_by('date_opened')[2:5]
+
+#     """
+#     Model edited to lower behaviour
+#     """
+# #     resturants = Resturant.objects.all()
+# #     print(resturants)
+# #     pprint(connection.queries)
+
+"""
+earliest()
+latest()
+
+Used for date time
+
+"""
+
+
+# def run():
+#         #resturant =  Resturant.objects.earliest('date_opened')
+#         #resturant =  Resturant.objects.latest('date_opened')
+#         resturant =  Resturant.objects.latest() #pre defined in model
+#         print(resturant)
+#         pprint(connection.queries)
+
+
+"""
+filtering by foreign keys
+
+"""
+
+
+def run():
+        chinese = Resturant.TypeChoices.CHINESE
+        sales = Sale.objects.filter(resturant__resturant_type = chinese)
+        print(sales)
+        pprint(connection.queries)
 
 
 

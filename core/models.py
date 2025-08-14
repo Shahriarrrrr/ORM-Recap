@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator, MaxValueValidator
-
+from django.db.models.functions import Lower
 
 
 
@@ -29,6 +29,14 @@ class Resturant(models.Model):
     )
     resturant_type = models.CharField(max_length=2, choices=TypeChoices.choices, default='' )
 
+
+
+    #Setting default ordering
+    class Meta:
+        ordering = [Lower('name'), 'date_opened']   #if name same then date_opened
+        get_latest_by = 'date_opened'
+
+
     def __str__(self):
         return self.name
     
@@ -36,6 +44,7 @@ class Resturant(models.Model):
     def save(self, *args, **kwargs):
         print(self._state.adding)
         super().save(*args, **kwargs)
+
 
 class Rating(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
