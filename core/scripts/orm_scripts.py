@@ -386,13 +386,17 @@ filtering by foreign keys
 """
 
 
-def run():
-        chinese = Resturant.TypeChoices.CHINESE
-        sales = Sale.objects.filter(resturant__resturant_type = chinese)
-        print(sales)
-        pprint(connection.queries)
+# def run():
+#         chinese = Resturant.TypeChoices.CHINESE
+#         sales = Sale.objects.filter(resturant__resturant_type = chinese)
+#         print(sales)
+#         pprint(connection.queries)
 
 
 
+"""
+Prefetch()
+select_related()
 
+"""
 
