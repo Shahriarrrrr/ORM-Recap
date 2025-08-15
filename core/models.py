@@ -65,4 +65,9 @@ class Sale(models.Model):
 
 class Staff(models.Model):
     name = models.CharField(max_length=255)
-    resturants = models.ManyToManyField(Resturant)
+    resturants = models.ManyToManyField(Resturant, related_name='staff', through='StaffResturant')
+
+class StaffResturant(models.Model):
+    staff = models.ForeignKey(Staff, on_delete=models.CASCADE)
+    resturant = models.ForeignKey(Resturant, on_delete=models.CASCADE)
+    salary = models.FloatField(null=True)

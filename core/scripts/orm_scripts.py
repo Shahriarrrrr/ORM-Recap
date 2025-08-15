@@ -410,12 +410,30 @@ for many to many relationship
 Created a staff 
 then printed if the staff is working in a resturant
 then added a resturant 
-Printed again
+Printed again....etc
+add, all, remove, count, set,clear
+"""
+
+# def run():
+#     staff, created = Staff.objects.get_or_create(name = 'John Wick')
+# #     print(staff.resturants.all())
+
+
+# #     staff.resturants.add(Resturant.objects.first())
+# #     staff.resturants.remove(Resturant.objects.first())
+#     #staff.resturants.set(Resturant.objects.all()[:5])
+#     staff.resturants.clear()
+#     print(staff.resturants.all())
+#     print(staff.resturants.count())
+
+"""
+Now for the other side of Many to Many
+
 """
 
 def run():
-    staff, created = Staff.objects.get_or_create(name = 'John Wick')
-    print(staff.resturants.all())
-    staff.resturants.add(Resturant.objects.first())
-    print(staff.resturants.all())
 
+    resturant = Resturant.objects.get(pk = 20)
+
+    staff =  resturant.staff.all()
+    print(staff)
