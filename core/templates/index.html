@@ -3,12 +3,21 @@
 
 {% block content %}
 
-{% for resturant in resturants %}
+{% comment %} {% for resturant in resturants %}
 <p>{{ resturant.name }}</p>
 <ul>
     {%for rating in resturant.ratings.all%}
     <li> {{rating.rating}} </li>
     {%endfor%}
 </ul>
-{%endfor%}
+<ul>
+    {%for sale in resturant.sales.all%}
+    <li> {{sale.income}} </li>
+    {%endfor%}
+</ul>   
+
+{%endfor%} {% endcomment %}
+{% comment %} {% for rating in ratings %}
+<p>{{rating.resturant.name}} - {{rating}}</p>
+{%endfor%} {% endcomment %}
 {% endblock %}
