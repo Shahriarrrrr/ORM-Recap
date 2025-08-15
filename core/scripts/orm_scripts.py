@@ -447,24 +447,37 @@ for this instance
 """
 
 
-def run():
-    staff, created = Staff.objects.get_or_create(name = "John Wick")
+# def run():
+#     staff, created = Staff.objects.get_or_create(name = "John Wick")
+# #     resturant = Resturant.objects.first()
+# #     resturant2 = Resturant.objects.last()
+# # #     StaffResturant.objects.create(
+# # #         staff = staff,
+# # #         resturant = resturant,
+# # #         salary = 28_000
+# # #     )
+# # #     StaffResturant.objects.create(
+# # #         staff = staff,
+# # #         resturant = resturant2,
+# # #         salary = 22_000
+# # #     )
+# #     staff_resturant = StaffResturant.objects.filter(staff = staff)
+# #     for s in staff_resturant:
+# #         print(s.salary)
+#     staff.resturants.clear()
 #     resturant = Resturant.objects.first()
-#     resturant2 = Resturant.objects.last()
-# #     StaffResturant.objects.create(
-# #         staff = staff,
-# #         resturant = resturant,
-# #         salary = 28_000
-# #     )
-# #     StaffResturant.objects.create(
-# #         staff = staff,
-# #         resturant = resturant2,
-# #         salary = 22_000
-# #     )
-#     staff_resturant = StaffResturant.objects.filter(staff = staff)
-#     for s in staff_resturant:
-#         print(s.salary)
-    staff.resturants.clear()
-    resturant = Resturant.objects.first()
-    #staff.resturants.add(resturant) #stores without salary
-    staff.resturants.add(resturant, through_defaults={'salary' : 28_000}) #stores without salary
+#     #staff.resturants.add(resturant) #stores without salary
+#     staff.resturants.add(resturant, through_defaults={'salary' : 28_000}) #stores without salary
+
+
+
+"""
+"""
+import random
+
+def run():
+    staff,created = Staff.objects.get_or_create(name = "John Wick")
+    staff.resturants.set(
+        Resturant.objects.all()[:10],
+        through_defaults={'salary' : random.randint(20_000, 80_000)}
+    )
