@@ -1,4 +1,4 @@
-from core.models import Resturant, Rating, Sale
+from core.models import Resturant, Rating, Sale, Staff
 from django.utils import timezone
 from django.db import connection
 from django.contrib.auth.models import User
@@ -398,5 +398,24 @@ filtering by foreign keys
 Prefetch()
 select_related()
 
+See in views
 """
+
+"""
+Many to Many fields and Through models 
+for many to many relationship
+
+"""
+"""
+Created a staff 
+then printed if the staff is working in a resturant
+then added a resturant 
+Printed again
+"""
+
+def run():
+    staff, created = Staff.objects.get_or_create(name = 'John Wick')
+    print(staff.resturants.all())
+    staff.resturants.add(Resturant.objects.first())
+    print(staff.resturants.all())
 
