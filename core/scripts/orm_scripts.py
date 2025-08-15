@@ -1,4 +1,4 @@
-from core.models import Resturant, Rating, Sale, Staff
+from core.models import Resturant, Rating, Sale, Staff, StaffResturant
 from django.utils import timezone
 from django.db import connection
 from django.contrib.auth.models import User
@@ -431,9 +431,40 @@ Now for the other side of Many to Many
 
 """
 
+# def run():
+
+#     resturant = Resturant.objects.get(pk = 20)
+
+#     staff =  resturant.staff.all()
+#     print(staff)
+
+
+"""
+Through Fields for Many to Many 
+Why through? maybe we need additional fields for the bridge table like salary
+for this instance
+
+"""
+
+
 def run():
-
-    resturant = Resturant.objects.get(pk = 20)
-
-    staff =  resturant.staff.all()
-    print(staff)
+    staff, created = Staff.objects.get_or_create(name = "John Wick")
+#     resturant = Resturant.objects.first()
+#     resturant2 = Resturant.objects.last()
+# #     StaffResturant.objects.create(
+# #         staff = staff,
+# #         resturant = resturant,
+# #         salary = 28_000
+# #     )
+# #     StaffResturant.objects.create(
+# #         staff = staff,
+# #         resturant = resturant2,
+# #         salary = 22_000
+# #     )
+#     staff_resturant = StaffResturant.objects.filter(staff = staff)
+#     for s in staff_resturant:
+#         print(s.salary)
+    staff.resturants.clear()
+    resturant = Resturant.objects.first()
+    #staff.resturants.add(resturant) #stores without salary
+    staff.resturants.add(resturant, through_defaults={'salary' : 28_000}) #stores without salary
