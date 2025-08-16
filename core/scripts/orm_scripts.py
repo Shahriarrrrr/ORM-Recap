@@ -2,6 +2,7 @@ from core.models import Resturant, Rating, Sale, Staff, StaffResturant
 from django.utils import timezone
 from django.db import connection
 from django.db.models.functions import Upper
+from django.db.models import Count, Avg, Min, Max
 from django.contrib.auth.models import User
 from pprint import pprint
 
@@ -515,6 +516,42 @@ Transform fields via aggregation
 
 
 """
+Getting Foreign key data with values() function
+
+"""
+
+# def run():
+#     IT = Resturant.TypeChoices.ITALIAN
+#     ratings =  Rating.objects.filter(resturant__resturant_type = IT).values('rating', 'resturant__name') #__name this can also be used in values
+#     print(ratings)
+#     #print(connection.queries)
+
 
 
 """
+values_list() --> Returns a tuple
+
+"""
+
+# def run():
+#     #resturant = Resturant.objects.values_list('name', 'date_opened') #Tupples
+#     resturant = Resturant.objects.values_list('name', flat=True) # no tuples just the values list a Queryset
+#     print(resturant)
+
+
+"""
+Aggregation & Annotation
+16:54
+"""
+
+def run():
+    # num =  Resturant.objects.count() #Returns num of rows
+    # num =  Resturant.objects.filter(name__startswith = 'c').count() #Returns num of rows
+
+    #num = Resturant.objects.aggregate(Count('id'))
+    print(Rating.objects.filter(resturant__name__startswith = 'c').aggregate(avg = Avg('rating')))
+    print(Sale.objects.aggregate(min = Min('income')))
+    print(Sale.objects.aggregate(max = Max('income')))
+    print(Sale.objects.filter(resturant__name__startswith = 'c').aggregate(max = Max('income')))
+    #print(connection.queries)
+    #print(num)
