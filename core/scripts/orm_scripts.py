@@ -1,6 +1,7 @@
 from core.models import Resturant, Rating, Sale, Staff, StaffResturant
 from django.utils import timezone
 from django.db import connection
+from django.db.models.functions import Upper
 from django.contrib.auth.models import User
 from pprint import pprint
 
@@ -472,12 +473,48 @@ for this instance
 
 
 """
-"""
-import random
 
-def run():
-    staff,created = Staff.objects.get_or_create(name = "John Wick")
-    staff.resturants.set(
-        Resturant.objects.all()[:10],
-        through_defaults={'salary' : random.randint(20_000, 80_000)}
-    )
+"""
+# import random
+
+# def run():
+#     staff,created = Staff.objects.get_or_create(name = "John Wick")
+#     staff.resturants.set(
+#         Resturant.objects.all()[:10],
+#         through_defaults={'salary' : random.randint(20_000, 80_000)}
+#     )
+
+
+"""
+Aggregation & Annotation
+
+values()
+values_list()
+
+"""
+
+# def run():
+#     #resturants = Resturant.objects.values('name', 'date_opened').first() #returns a dictionary
+#     resturants = Resturant.objects.values('name', 'date_opened') #returns a dictionary object
+#     print(resturants)
+#     print(connection.queries)
+
+
+"""
+Transform fields via aggregation
+
+"""
+
+
+
+# def run():
+   
+#     resturants = Resturant.objects.values(name_upper = Upper('name'))[:3] #Operates at a DB level
+#     print(resturants)
+#     print(connection.queries)
+
+
+"""
+
+
+"""
