@@ -2,11 +2,11 @@ from core.models import Resturant, Rating, Sale, Staff, StaffResturant
 from django.utils import timezone
 from django.db import connection
 from django.db.models.functions import Upper, Length, Concat
-from django.db.models import Count, Avg, Min, Max, Sum , CharField, Value
+from django.db.models import Count, Avg, Min, Max, Sum , CharField, Value, F,Q
 from django.contrib.auth.models import User
 from pprint import pprint
 from django.db.models.functions import Coalesce
-
+import random
 
 #SEEDING DATA
 # def run():
@@ -652,3 +652,53 @@ to get the number of characters in the name of resturant. So 'xyz' == 3.
 #     # for r in resturants:
 #     #     print(r.total_sales)
 #     # pprint(connection.queries)    
+
+
+"""
+F expressions Start
+Changes in Database Level
+
+"""
+
+def run():
+    #rating = Rating.objects.update(rating  = F('rating') * 2) 
+    #rating = Rating.objects.update(rating  = F('rating') / 2)
+    """
+    expenditure coloumn added to sales table (new , manually)
+
+    """ 
+    # sales = Sale.objects.all()
+    # for sale in sales:
+    #     sale.expenditure = random.uniform(5,100)
+    # Sale.objects.bulk_update(sales, ['expenditure']) #1st param is queryset and second is the column we are updating
+
+    """
+    Getting all the sales that is in loses or expense > income
+    """
+    #sales = Sale.objects.filter(expenditure__gt = F('income'))#all comparison done in db level
+    """
+    Want to get all the sales that made a profit and annotate them
+    """
+    # sales = Sale.objects.annotate(profit  = F('income') - F('expenditure')).order_by('-profit')
+    # print(sales.first().profit)
+
+    """
+    Want to get count of number of resturant who have profit over a certain amount or i would say income > expenditure
+    """
+    # sales = Sale.objects.aggregate(
+    #     profit = Count('id', filter=Q(income__gt = F('expenditure'))),
+    #     loss = Count('id', filter= Q(income__lt = F('expenditure')))
+    # )
+    # print(sales)
+    # pprint(connection.queries)
+
+    """
+    There is one problem with F expressions
+    """
+    # rating = Rating.objects.first()
+    # print(rating.rating)
+    # rating.rating = F('rating') + 1
+    # rating.refresh_from_db() #Without this the rating.rating is this -> F(rating) + Value(1)
+    # rating.save() 
+    # print(rating.rating)
+    
