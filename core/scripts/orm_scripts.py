@@ -1,10 +1,12 @@
 from core.models import Resturant, Rating, Sale, Staff, StaffResturant
 from django.utils import timezone
 from django.db import connection
-from django.db.models.functions import Upper
-from django.db.models import Count, Avg, Min, Max
+from django.db.models.functions import Upper, Length, Concat
+from django.db.models import Count, Avg, Min, Max, Sum , CharField, Value
 from django.contrib.auth.models import User
 from pprint import pprint
+from django.db.models.functions import Coalesce
+
 
 #SEEDING DATA
 # def run():
@@ -541,17 +543,112 @@ values_list() --> Returns a tuple
 
 """
 Aggregation & Annotation
-16:54
 """
 
-def run():
-    # num =  Resturant.objects.count() #Returns num of rows
-    # num =  Resturant.objects.filter(name__startswith = 'c').count() #Returns num of rows
+# def run():
+#     # num =  Resturant.objects.count() #Returns num of rows
+#     # num =  Resturant.objects.filter(name__startswith = 'c').count() #Returns num of rows
 
-    #num = Resturant.objects.aggregate(Count('id'))
-    print(Rating.objects.filter(resturant__name__startswith = 'c').aggregate(avg = Avg('rating')))
-    print(Sale.objects.aggregate(min = Min('income')))
-    print(Sale.objects.aggregate(max = Max('income')))
-    print(Sale.objects.filter(resturant__name__startswith = 'c').aggregate(max = Max('income')))
-    #print(connection.queries)
-    #print(num)
+#     #num = Resturant.objects.aggregate(Count('id'))
+#     # print(Rating.objects.filter(resturant__name__startswith = 'c').aggregate(avg = Avg('rating')))
+#     # print(Sale.objects.aggregate(min = Min('income')))
+#     # print(Sale.objects.aggregate(max = Max('income')))
+#     # print(Sale.objects.filter(resturant__name__startswith = 'c').aggregate(max = Max('income')))
+#     # print(Sale.objects.filter(resturant__name__startswith = 'c').aggregate(
+#     #     max = Max('income'),
+#     #     min = Min('income')        
+#     #     ))
+#     # #print(connection.queries)
+#     #print(num)
+
+"""
+Suppose we are running a report and we want to get the last 31 days of sales data
+"""
+# def run():
+#     one_month_ago = timezone.now()  - timezone.timedelta(days=31)
+#     sales = Sale.objects.filter(datetime__gte = one_month_ago)
+#     print(sales.aggregate(
+#         min = Min('income'),
+#         avg = Avg('income'),
+#         max = Max('income'),
+#         sum = Sum('income'),
+#     ))
+
+
+"""
+Annotations
+
+fetch all resturants, lets assume we want
+to get the number of characters in the name of resturant. So 'xyz' == 3.
+"""
+
+# def run():
+#     #resturants = Resturant.objects.annotate(len_name = Length('name'))
+#     #print(resturants.first().len_name) #so these adds an attribute but not at db level
+#     #print(resturants.values('name', 'len_name')) #can also be accesed by value
+
+#     """
+#     We can also filter the annotated values
+#     """
+#     # resturants = Resturant.objects.annotate(len_name = Length('name')).filter(
+#     #     len_name__gt = 10
+#     # )
+#     # print(resturants.values('name', 'len_name'))
+
+#     """
+#     Concat
+
+#     Resturant 1 [Rating 4.3] -> we want to get the resturant name 
+#     and the average rating for those resturants , Example case format must match
+#     """
+#     # concatanation = Concat('name' , Value(" [Rating: "),Avg('ratings__rating'),Value(']'),
+#     #                        output_field=CharField()
+#     #                        )
+#     # resturant = Resturant.objects.all().annotate(
+#     #     message = concatanation
+#     # )
+#     # for r in resturant:
+#     #     print(r.message)
+#     """
+#     Another simple example of annotatate
+#     """
+#     # resturant = Resturant.objects.annotate(
+#     #     total_sales = Sum('sales__income')
+#     # ).values('name', 'total_sales')
+#     # print(resturant)
+#     # print([r ['total_sales'] for r in resturant])
+
+#     """
+#     We want to get the number of ratings each resturant recieved
+#     """
+#     # resturant = Resturant.objects.annotate(
+#     #     number_of_ratings = Count('ratings'), # here ratings is a related name
+#     #     average_rating = Avg('ratings__rating')
+#     #     )
+#     # print(resturant.values(
+#     #     'name',
+#     #     'number_of_ratings',
+#     #     'average_rating'
+#     # ))
+
+#     """
+#     Suppose i want to get how many rating does each type of resturant have
+#     We can group by values before callinga annotate
+#     """
+#     # resturant = Resturant.objects.values('resturant_type').annotate(
+#     #     number_of_ratings = Count('ratings'), # here ratings is a related name
+#     #     average_rating = Avg('ratings__rating')
+#     #     )
+#     # print(resturant)
+#     # print(connection.queries)
+
+#     """
+#     We can also order by the total_sales or i would say the annotated values
+#     """
+#     # resturants = Resturant.objects.annotate(
+#     #     total_sales = Sum('sales__income')
+#     # ).filter(total_sales__lt = 300).order_by('-total_sales')
+
+#     # for r in resturants:
+#     #     print(r.total_sales)
+#     # pprint(connection.queries)    
